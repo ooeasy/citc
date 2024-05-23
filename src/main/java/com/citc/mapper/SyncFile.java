@@ -1,15 +1,15 @@
 package com.citc.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mapper
+@Repository
 public class SyncFile {
-
 
     public int push(HashMap<String, Object> data) {
         String fileName = "src/main/resources/static/test/map";

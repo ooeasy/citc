@@ -15,7 +15,7 @@ public class GeneratorController {
     GeneratorService generatorService;
 
 
-    @CrossOrigin(origins = "*")
+
     @PostMapping("/create")
     public Map<String, Object> create(@RequestBody(required = false) HashMap<String, Object> request) {
         if (request == null) {

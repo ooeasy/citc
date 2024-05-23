@@ -4,11 +4,15 @@
 
 
 <mapper namespace="com.citc.mapper.SyncMapper">
-    <insert id="inserIntoImageList" parameterType="java.util.List">
-        INSERT INTO citc.Images
-        VALUES
-        <foreach collection="imageList" item="image" separator=",">
-            (#{image.firstRouter}, #{image.secondRouter}, #{image.index}, #{image.time})
-        </foreach>
-    </insert>
+        <insert id="insertIntoImageList" parameterType="java.util.List">
+            INSERT INTO citc.Images
+            VALUES
+            <foreach collection="imageList" item="image" separator=",">
+                (#{image.src}, #{image.index}, #{image.type}, #{image.time})
+            </foreach>
+        </insert>
+    <select id="selectall">
+        select *
+        from citc.Images
+    </select>
 </mapper>

@@ -13,15 +13,13 @@ public class SyncDatabase {
     @Autowired
     SyncMapper syncMapper;
 
-    @Autowired
-    SyncDatabase syncDatabase;
-
     public int push(HashMap data, LocalDateTime time) {
         List<HashMap<String, Object>> images = (List<HashMap<String, Object>>) data.get("Images");
         for (HashMap<String, Object> i : images) {
             i.put("time", time);
         }
-        syncMapper.inserIntoImageList(images);
+        syncMapper.insertIntoImageList(images);
+        //syncMapper.selectall();
         return 0;
     }
 

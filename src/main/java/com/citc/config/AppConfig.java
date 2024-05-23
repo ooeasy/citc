@@ -1,4 +1,4 @@
-package com.citc;
+package com.citc.config;
 
 import com.citc.Entity.Student;
 import com.citc.mapper.SyncDatabase;

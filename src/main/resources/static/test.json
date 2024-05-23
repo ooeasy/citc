@@ -1,0 +1,19 @@
+[
+  {
+    "host": "127.0.0.1",
+    "port": "5000",
+    "context": "testData",
+    "typeSeries": "line",
+    "theam": "dark",
+    "width": "700",
+    "height": "300"
+  },
+  {
+    "title": "邮件",
+    "selectedInputType": "email"
+  },
+  {
+    "content": "显示效果展示",
+    "selectedInputType": 2
+  }
+]

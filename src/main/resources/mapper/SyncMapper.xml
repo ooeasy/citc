@@ -4,15 +4,51 @@
 
 
 <mapper namespace="com.citc.mapper.SyncMapper">
-        <insert id="insertIntoImageList" parameterType="java.util.List">
-            INSERT INTO citc.Images
-            VALUES
-            <foreach collection="imageList" item="image" separator=",">
-                (#{image.src}, #{image.index}, #{image.type}, #{image.time})
-            </foreach>
-        </insert>
-    <select id="selectall">
-        select *
-        from citc.Images
+    <insert id="insertIntoImage" parameterType="java.util.List">
+        INSERT INTO citc.Images
+        VALUES
+        <foreach collection="ImageList" item="image" separator=",">
+            (#{image.src}, #{image.index}, #{image.type}, #{time})
+        </foreach>
+    </insert>
+    <insert id="insertIntoComp" parameterType="java.util.List">
+        INSERT INTO citc.Comp
+        VALUES
+        <foreach collection="CompList" item="comp" separator=",">
+            (#{comp.offsetX}, #{comp.offsetY}, #{comp.width}, #{comp.height},#{comp.index},#{time})
+        </foreach>
+    </insert>
+    <insert id="insertIntoAttr" parameterType="java.util.List">
+        INSERT INTO citc.Attr
+        VALUES
+        <foreach collection="AttrList" item="Attr" separator=",">
+            (#{Attr.index},#{Attr.attr},#{time})
+        </foreach>
+    </insert>
+    <insert id="insertIntoRouter" parameterType="java.util.List">
+        INSERT INTO citc.Router
+        VALUES
+        <foreach collection="RouterList" item="router" separator=",">
+            (#{router.firstRouter}, #{router.secondRouter}, #{router.index}, #{time})
+        </foreach>
+    </insert>
+    <insert id="insertIntoRouterList" parameterType="java.util.List">
+        INSERT INTO citc.router_list
+        VALUES
+        <foreach collection="routerlist" item="router" separator=",">
+            (#{router.router_name}, #{router.router_type}, #{router.router_index},#{router.router_parent_index},
+            #{time})
+        </foreach>
+    </insert>
+    <select id="selectAllVersion" resultType="java.time.LocalDateTime">
+        select distinct time
+        from citc.Attr
     </select>
+
+    <select id="selectAttrbydata" resultType="java.util.HashMap">
+        select *
+        from citc.Attr
+        where time = '${dateTime}'
+    </select>
+
 </mapper>

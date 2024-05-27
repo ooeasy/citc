@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class Gen {
@@ -152,6 +149,16 @@ public class Gen {
         return json.toString();
     }
 
+    public static void main(String[] args) {
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+
+        List<Integer> list = new ArrayList<>(set);
+        System.out.println(list.toString());
+    }
+
     @GetMapping("/test/vue")
     @ResponseBody
     public static String OutVue(List<Map<String, Object>> Comp,
@@ -259,10 +266,10 @@ public class Gen {
     @GetMapping("/test/controller")
     @ResponseBody
     public static String OutController(List<Map<String, Object>> Comp,
-                                List<Map<String, Object>> Router,
-                                List<Map<String, Object>> Image,
-                                List<String> firstRouterList,
-                                List<List<String>> secondRouterList) throws IOException, TemplateException {
+                                       List<Map<String, Object>> Router,
+                                       List<Map<String, Object>> Image,
+                                       List<String> firstRouterList,
+                                       List<List<String>> secondRouterList) throws IOException, TemplateException {
         Map mapForApp = new HashMap();
         mapForApp.put("firstRouterList", firstRouterList);
         mapForApp.put("secondRouterList", secondRouterList);

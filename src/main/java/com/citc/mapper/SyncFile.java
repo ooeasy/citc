@@ -1,18 +1,20 @@
 package com.citc.mapper;
 
+import jdk.jshell.execution.LoaderDelegate;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 @Repository
 public class SyncFile {
 
-    public int push(HashMap<String, Object> data) {
-        String fileName = "src/main/resources/static/test/map";
+    public int push(HashMap<String, Object> data, LocalDateTime time) {
+        String fileName = "src/main/resources/static/test/map" + time;
         serializeMapToFile(data, fileName);
         return 0;
     }
@@ -20,7 +22,9 @@ public class SyncFile {
 
     // 将Map对象序列化到文件
     private static void serializeMapToFile(Map<String, Object> map, String fileName) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
             outputStream.writeObject(map);
             System.out.println("Map serialized successfully.");
         } catch (IOException e) {
@@ -29,17 +33,19 @@ public class SyncFile {
     }
 
 
-    public Map<String, Integer> pull() {
+    public Map<String, Integer> pull(File file) {
         System.out.println(this.getClass());
-        String fileName = "src/main/resources/static/test/map";
-        Map<String, Integer> map = deserializeMapFromFile(fileName);
+        Map<String, Integer> map = deserializeMapFromFile(file);
         return map;
     }
 
     // 从文件中反序列化Map对象
-    private static Map<String, Integer> deserializeMapFromFile(String fileName) {
+    private static Map<String, Integer> deserializeMapFromFile(File file) {
         Map<String, Integer> map = new HashMap<>();
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+        try {
+            System.out.println(file.getName());
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
             map = (Map<String, Integer>) inputStream.readObject();
             System.out.println("Map deserialized successfully.");
         } catch (IOException | ClassNotFoundException e) {
@@ -47,5 +53,4 @@ public class SyncFile {
         }
         return map;
     }
-
 }

@@ -14,7 +14,8 @@ import java.util.Map;
 public class SyncFile {
 
     public int push(HashMap<String, Object> data, LocalDateTime time) {
-        String fileName = "src/main/resources/static/test/map" + time;
+        //String fileName = "src/main/resources/static/test/map" + time;
+        String fileName = "/Users/nico/Downloads/" + time;
         serializeMapToFile(data, fileName);
         return 0;
     }
@@ -31,7 +32,6 @@ public class SyncFile {
             e.printStackTrace();
         }
     }
-
 
     public Map<String, Integer> pull(File file) {
         System.out.println(this.getClass());

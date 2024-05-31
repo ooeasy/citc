@@ -1,8 +1,6 @@
 package com.citc.service;
 
-import com.citc.controller.Gen;
 import com.citc.mapper.GeneratorMapper;
-import com.citc.thread;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +10,7 @@ import java.util.*;
 
 @Service
 public class GeneratorService {
-    @Autowired
-    GeneratorMapper generatorMapper1;
+
 
     public void create(Map data) {
         List<Map<String, Object>> Attr = (List<Map<String, Object>>) data.get("Attr");
@@ -29,26 +26,26 @@ public class GeneratorService {
         });
 
 
-//        for (Map img : Images) {
-//            Integer index = (Integer) img.get("index");
-//            Map<String, Object> attr = Attr.get(index);
-//            System.out.println("--------Img:" + img.get("index"));
-//            try {
-//                Thread thread = new Shengcheng(attr, (Integer) img.get("type"), data);
-//                thread.join();
-//                thread.start();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            } finally {
-//            }
-//        }
+        for (Map img : Images) {
+            Integer index = (Integer) img.get("index");
+            Map<String, Object> attr = Attr.get(index);
+            System.out.println("--------Img:" + img.get("index"));
+            try {
+                Thread thread = new Shengcheng(attr, (Integer) img.get("type"), data);
+                thread.join();
+                thread.start();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } finally {
+            }
+        }
         try {
-            Gen.OutRouter((List<Map<String, Object>>) data.get("Router"),
+            Generator.OutRouter((List<Map<String, Object>>) data.get("Router"),
                     (List<Map<String, Object>>) data.get("Images"),
                     (List<Object>) data.get("firstRouters"),
                     (List<List>) data.get("secondRouters"));
             System.out.println("--------------------------------------------");
-            Gen.OutVue((List<Map<String, Object>>) data.get("Comp"),
+            Generator.OutVue((List<Map<String, Object>>) data.get("Comp"),
                     (List<Map<String, Object>>) data.get("Router"),
                     (List<Map<String, Object>>) data.get("Images"),
                     (List<String>) data.get("firstRouters"),
@@ -60,11 +57,6 @@ public class GeneratorService {
         }
     }
 
-    public String getFilePath(Object o) {
-        generatorMapper1.getTemplate(1);
-        generatorMapper1.generateCode(new Object());
-        return "Gen";
-    }
 }
 
 class Shengcheng extends Thread {
@@ -77,13 +69,13 @@ class Shengcheng extends Thread {
         try {
             if (type == 0) {
                 System.out.println("-------ShengCheng0：" + attr.toString());
-                Gen.Out(attr, request);
+                Generator.Out(attr, request);
             } else if (type == 2) {
                 System.out.println("-------ShengCheng2：" + attr.toString());
-                Gen.Out3(attr);
+                Generator.Out3(attr);
             } else if (type == 3) {
                 System.out.println("-------ShengCheng3：" + attr.toString());
-                Gen.Out4(attr);
+                Generator.Out4(attr);
             }
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e);

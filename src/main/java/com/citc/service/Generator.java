@@ -1,4 +1,4 @@
-package com.citc.controller;
+package com.citc.service;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.util.*;
 
 @Component
-public class Gen {
+public class Generator {
 
     @GetMapping("/test/index")
     public String test() {
-        return "/Gen/index.html"; // 返回视图名称
+        return "/Generator/index.html"; // 返回视图名称
     }
 
     @GetMapping("/test/echarts")
@@ -49,6 +49,8 @@ public class Gen {
         cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_29));
         Template temp = cfg.getTemplate("Echarts.ftl");
         FileWriter fw = new FileWriter(toPath + "echarts" + attr.get("index") + ".vue");
+        System.out.println("----------------------------------------");
+        System.out.println(data.toString());
         temp.process(data, fw);
         fw.close();
         JSONObject json = new JSONObject(data);
@@ -89,7 +91,6 @@ public class Gen {
         cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_29));
         Template temp = cfg.getTemplate("paragraph.ftl");
         //Map<String, String> map = new HashMap<String, String>();
-        System.out.println(map.get("selectedpType").getClass());
         //switch (Integer.parseInt((String) map.get("selectedpType"))) {
         switch ((int) map.get("selectedpType")) {
             default:
@@ -149,15 +150,6 @@ public class Gen {
         return json.toString();
     }
 
-    public static void main(String[] args) {
-        Set<Integer> set = new HashSet<>();
-        set.add(1);
-        set.add(2);
-        set.add(3);
-
-        List<Integer> list = new ArrayList<>(set);
-        System.out.println(list.toString());
-    }
 
     @GetMapping("/test/vue")
     @ResponseBody
@@ -182,7 +174,7 @@ public class Gen {
         fw.close();
         for (String firstrouter : firstRouterList) {
             for (String secondrouter : secondRouterList.get(firstRouterList.indexOf(firstrouter))) {
-                System.out.println("整合:" + firstrouter + " " + secondrouter);
+                System.out.println("路由路径:" + firstrouter + " " + secondrouter);
                 Map map = new HashMap<String, Object>();
                 List indexList = new ArrayList();
                 List widthList = new ArrayList();
@@ -194,13 +186,10 @@ public class Gen {
                     if (router.get("firstRouter").equals(firstrouter)) {
                         if (router.get("secondRouter").equals(secondrouter)) {
                             int index = (int) router.get("index");
-                            //map.put("index", index);
                             indexList.add(index);
                             Map image = Image.get(index);
                             Map comp = Comp.get(index);
-                            //map.put("width", comp.get("width"));
                             widthList.add(comp.get("width"));
-                            // map.put("height", comp.get("height"));
                             heightList.add(comp.get("height"));
                             xList.add(comp.get("offsetX"));
                             yList.add(comp.get("offsetY"));
@@ -284,8 +273,6 @@ public class Gen {
         FileWriter fw = new FileWriter(toPathApp + "App.vue");
         temp.process(mapForApp, fw);
         fw.close();
-
-
         return "json.toString()";
     }
 

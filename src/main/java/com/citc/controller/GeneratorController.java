@@ -14,8 +14,6 @@ public class GeneratorController {
     @Autowired
     GeneratorService generatorService;
 
-
-
     @PostMapping("/create")
     public Map<String, Object> create(@RequestBody(required = false) HashMap<String, Object> request) {
         if (request == null) {
@@ -27,12 +25,6 @@ public class GeneratorController {
         return request;
     }
 
-    public String getFilePath(String json) {
-        JSON2Object("Test");
-        generatorService.getFilePath("Gen");
-        Packager packager = new Packager();
-        return packager.getPackageFIle("Gen");
-    }
 
     public Object JSON2Object(String JSON) {
         return new Object();

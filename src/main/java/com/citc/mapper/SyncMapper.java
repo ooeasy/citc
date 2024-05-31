@@ -29,5 +29,11 @@ public interface SyncMapper {
     public List<LocalDateTime> selectAllVersion();
 
 
-    public List selectAttrbydata(LocalDateTime dateTime);
+    public List<HashMap<?, ?>> selectAttrbydate(LocalDateTime dateTime);
+
+    public List<HashMap<?, ?>> selectCompbydate(LocalDateTime dateTime);
+
+    public List<HashMap<?, ?>> selectImagesbydate(LocalDateTime dateTime);
+
+    public List<HashMap<?, ?>> selectRouterbydate(LocalDateTime dateTime);
 }

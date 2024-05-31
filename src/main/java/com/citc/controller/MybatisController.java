@@ -18,6 +18,12 @@ public class MybatisController {
     @Resource(name = "my1")
     MybatisService my;
 
+    @GetMapping("/isOnline")
+    public boolean isOnline() {
+        mybatisService.getDatabaseList();
+        return true;
+    }
+
     @GetMapping("/getDatabaseList")
     public ArrayList<String> getDatabaseList() {
         return mybatisService.getDatabaseList();

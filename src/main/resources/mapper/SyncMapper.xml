@@ -45,10 +45,25 @@
         from citc.Attr
     </select>
 
-    <select id="selectAttrbydata" resultType="java.util.HashMap">
+    <select id="selectAttrbydate" resultType="java.util.HashMap">
         select *
         from citc.Attr
         where time = '${dateTime}'
     </select>
+    <select id="selectCompbydate" resultType="java.util.HashMap">
+        select *
+        from citc.Comp
+        where time = '${dateTime}'
+    </select>
 
+    <select id="selectImagesbydate" resultType="java.util.HashMap">
+        select *
+        from citc.Images
+        where time = '${dateTime}'
+    </select>
+    <select id="selectRouterbydate" resultType="java.util.HashMap">
+        select *
+        from citc.Router
+        where time = '${dateTime}'
+    </select>
 </mapper>

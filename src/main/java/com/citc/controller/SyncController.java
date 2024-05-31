@@ -85,17 +85,19 @@ public class SyncController {
     @GetMapping("/pulllist")
     public List pulllist() {
         System.out.println(this.getClass());
-        List list=syncService.pulllist();
+        List list = syncService.pulllist();
         return list;
     }
+
     @GetMapping("/pullbydate")
     public Map<String, Object> pullbydata(@RequestParam LocalDateTime dateTime) {
         System.out.println(this.getClass());
-        Map map=syncService.pullbydata(dateTime);
+        Map map = syncService.pullbydata(dateTime);
         return map;
     }
+
     @PostMapping("/pullbyfile")
-    public Map<String, Object> pullbyfile(@RequestBody MultipartFile mfile) {
+    public Map<String, Object> pullbyfile(@RequestParam("file")MultipartFile mfile) {
         System.out.println(this.getClass());
         if (mfile.isEmpty()) {
             Map result = new HashMap();
